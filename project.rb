@@ -11,6 +11,6 @@ get '/segql' do
   send_file 'pages/homePage.html'
 end
 post '/segqlejecucion' do
-  uti.validaEstructura params[:query]
+  puts uti.validaEstructura params[:query]
   params[:query]
 end

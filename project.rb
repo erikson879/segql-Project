@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+#   @profesor
+#   Andres Sanoja
+#   @curso
+#   Topicos especiales en analisis de documentos web
+#   @autor
+#   Erikson Agustin Rodriguez Morillo
 require 'sinatra'
 require 'json'
 require './Utility'

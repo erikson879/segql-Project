@@ -14,19 +14,36 @@ class Utility
     atr = valida_atributos(atributos)
     return mensaje = atr if atr.class == String
 
-    unless partes[2].strip == 'from'
-      return mensaje = 'Error no se encontro from en la ubicación correspondiente'
+    unless partes[2].strip.upcase == 'FROM'
+      return mensaje = 'Error no se encontro FROM en la ubicación esperada'
     end
 
     url = partes[3].strip unless partes[3].nil?
     res_url = valida_url(url)
     return mensaje = res_url if res_url.class == String
 
+    if partes.length > 4 && !partes[4].strip.nil? && (partes[4].strip.upcase != 'WHERE')
+      return mensaje = 'Error no se encontro WHERE en la ubicación esperada'
+    elsif partes.length == 5
+      return mensaje = 'Error la consulta, termina de forma inesperada'
+    end
+
     condicion = partes[5].strip unless partes[5].nil?
+    if condicion.empty?
+      return mensaje = 'Atributo no especificado'
+    else
+      valida_condicon(condicion)
+    end
 
     orden = partes[7].strip unless partes[7].nil?
     parametro = partes[9].strip unless partes[9].nil?
     mensaje
+  end
+
+  def valida_condicon(_condicion)
+    puts 'llego a valida_condicon(_condicion)'
+    partes = _condicion.upcase.strip.split('AND')
+    puts partes
   end
 
   def valida_url(_url)

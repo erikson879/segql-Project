@@ -42,8 +42,17 @@ class Utility
 
   def valida_condicon(_condicion)
     puts 'llego a valida_condicon(_condicion)'
-    partes = _condicion.upcase.strip.split('AND')
-    puts partes
+    partes = _condicion.upcase.strip.split('(')
+    p_final = []
+    partes.each do |i|
+      # if i.split(')').length > 1
+      #  p_final.push(i.split(')'))
+      # else
+      #  p_final.push(i)
+      # end
+      p_final.push(i.split(')'))
+    end
+    puts p_final
   end
 
   def valida_url(_url)

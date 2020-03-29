@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'open-uri'
 require 'json'
 class Utility
   def validaEstructura(_param)
@@ -13,12 +14,38 @@ class Utility
     atr = valida_atributos(atributos)
     return mensaje = atr if atr.class == String
 
+    unless partes[2].strip == 'from'
+      return mensaje = 'Error no se encontro from en la ubicación correspondiente'
+    end
+
     url = partes[3].strip unless partes[3].nil?
+    res_url = valida_url(url)
+    return mensaje = res_url if res_url.class == String
+
     condicion = partes[5].strip unless partes[5].nil?
+
     orden = partes[7].strip unless partes[7].nil?
     parametro = partes[9].strip unless partes[9].nil?
-    # mensaje = validaUbicacionFuncion(partes, funcion)
     mensaje
+  end
+
+  def valida_url(_url)
+    begin
+      if !_url.nil?
+        rr = ['HTTP://', 'HTTPS://']
+        cont = 0
+        rr.each do |i|
+          cont = 1 if _url.upcase.include? i
+        end
+        _url = 'http://' + _url if cont == 0
+        respuesta = open(_url).status
+      else
+        raise StandardError
+      end
+    rescue StandardError
+      respuesta = 'Error en <URL>'
+    end
+    respuesta
   end
 
   def limpiar_return_line(_param)

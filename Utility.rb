@@ -50,22 +50,29 @@ class Utility
     puts 'llego a valida_condicon(_condicion)'
     partes = _condicion.upcase.strip.split('AND')
     p_temp = []
+    p_or = []
     partes.each do |i|
-      # if i.split('').length > 1
-      #  p_final.push(i.split(')'))
-      # else
-      #  p_final.push(i)
-      # end
-      # p_temp.push(i.split(')'))
       if i.strip.split(/!=|<|>|=/).length > 2
+        puts 'MAS DE DOS'
         puts i.strip.split(/!=|<|>|=/).length
+        puts i.strip
+        i.strip.split(/^\(/) do |_y|
+          puts 'pase'
+          p_or.push(_y.strip)
+        end
+        puts 'pase 1111' if i.strip =~ /^\(/ && i.strip =~ /\)$/
       else
+        puts 'SOLO UNO'
         puts i.strip.split(/!=|<|>|=/).length
       end
     end
-
+    puts '#####################'
+    puts p_or
+    puts '#####################'
     puts partes
   end
+
+  def valida_condicon_or(_condicion); end
 
   def valida_url(_url)
     begin

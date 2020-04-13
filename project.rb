@@ -3,11 +3,12 @@
 #   @profesor
 #   Andres Sanoja
 #   @curso
-#   Topicos especiales en analisis de documentos web
+#   Analisis de Documentos en Archivos Webs
 #   @autor
 #   Erikson Agustin Rodriguez Morillo
 require 'sinatra'
 require 'json'
+require 'erb'
 require './Utility'
 
 uti = Utility.new
@@ -17,8 +18,10 @@ get '/segql' do
   send_file 'pages/homePage.html'
 end
 post '/segqlejecucion' do
+  consulta = params[:query]
   mensaje = uti.validaEstructura params[:query]
   mensaje = 'TODO OK' if mensaje.empty?
   puts mensaje
-  params[:query]
+  puts consulta
+  erb :respuesta, locals: { mensaje: mensaje, consulta: consulta }
 end

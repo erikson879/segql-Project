@@ -3,7 +3,7 @@
 #   @profesor
 #   Andres Sanoja
 #   @curso
-#   Topicos especiales en analisis de documentos web
+#   Analisis de Documentos en Archivos Web
 #   @autor
 #   Erikson Agustin Rodriguez Morillo
 require 'open-uri'

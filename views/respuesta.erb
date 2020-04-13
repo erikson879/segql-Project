@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+  @profesor
+  Andres Sanoja
+  @curso
+  Topicos especiales en analisis de documentos web
+  @autor
+  Erikson Agustin Rodriguez Morillo
+-->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <title>SEGQL</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" style="margin-top:2em;">
+        <div class="col-4 alert-success">
+          <h1>SEGQL</h1>
+          <p>
+            <strong>Documentaci&oacute;n:</strong> la estructura de la consulta
+            debe ser de la siguiente manera,considerando saltos de lineas.
+          </p>
+          <p style="font-size:1em;">
+            <strong>(SELECT|MERGE)</strong></br>
+            (‘*’ | &lt;atributo&gt;[,&lt;atributo&gt;]*)</br>
+            <strong>FROM</strong></br>
+            &lt;URL&gt;</br>
+            <strong>WHERE</strong></br>
+            &lt;condicion&gt;</br>
+            <strong>ORDER BY</strong></br>
+            (&lt;atributo&gt; [‘asc’ | ‘desc’][,])*</br>
+            <strong>PARAMS</strong></br>
+            &lt;parametro&gt;=&lt;valor&gt;[,&lt;parametro&gt;=&lt;valor&gt;]*</br>
+          </p>
+          <p>
+            <strong>Función:</strong> es la operación a ejecutar. Por ejemplo <strong>select o merge.</strong></br>
+            <strong>Select</strong>, devuelve una lista de bloques o blockset que cumplen con la condición, respetando el orden
+            especificado.</br>
+            <strong>Merge</strong>, devuelve un blockset luego de mezclar sus rectángulos, habiendo
+            considerado las condiciones y parámetros de la segmentación.</br>
+            <strong>Atributo:</strong> es cualquiera de los atributos presentes en la segmentación (ie el JSON
+            producido).</br>
+            <strong>URL:</strong> Es el url de la pagina registrada en el repositorio.</br>
+            <strong>Condición:</strong> Una expresión en función de constantes, literales y &lt;atributos&gt;.</br>
+            <strong>Params:</strong> parámetros de la segmentación. Si no se especifican se usa un valor por
+            defecto.
+            Para interpretar correctamente este tipo de instrucciones, la primera linea sera el select o
+            merge. Al leer la segunda linea, se lee una lista delimitada por comas con los atributos a
+            considerar. Luego se leería el from y así sucesivamente. Las lineas where, order by y
+            params son opcionales, así como su condición, atributos y valores.
+          </p>
+        </div>
+        <div class="col-8">
+          <form action="segqlejecucion" method="post">
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Editor de query</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="12" name="query" required><%= consulta %></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Ejecutar</button>
+          </form>
+          <div id="prueba" ><%= mensaje %></div>
+        </div>
+
+      </div>
+    </div
+  </body>
+</html>

@@ -28,21 +28,23 @@ class Utility
     res_url = valida_url(url)
     return mensaje = res_url if res_url.class == String
 
-    if partes.length > 4 && !partes[4].strip.nil? && (partes[4].strip.upcase != 'WHERE')
-      return mensaje = 'Error no se encontro WHERE en la ubicación esperada'
-    elsif partes.length == 5
-      return mensaje = 'Error la consulta, termina de forma inesperada'
-    end
+    if partes.length > 4
+      if !partes[4].strip.nil? && (partes[4].strip.upcase != 'WHERE')
+        return mensaje = 'Error no se encontro WHERE en la ubicación esperada'
+      elsif partes.length == 5
+        return mensaje = 'Error la consulta, termina de forma inesperada'
+      end
 
-    condicion = partes[5].strip unless partes[5].nil?
-    if condicion.empty?
-      return mensaje = 'Atributo no especificado'
-    else
-      valida_condicon(condicion)
-    end
+      condicion = partes[5].strip unless partes[5].nil?
+      if condicion.empty?
+        return mensaje = 'Condicion no especificada'
+      else
+        return valida_condicon(condicion) unless valida_condicon(condicion).nil?
+      end
 
-    orden = partes[7].strip unless partes[7].nil?
-    parametro = partes[9].strip unless partes[9].nil?
+      orden = partes[7].strip unless partes[7].nil?
+      parametro = partes[9].strip unless partes[9].nil?
+    end
     mensaje
   end
 
@@ -51,7 +53,14 @@ class Utility
     partes = _condicion.upcase.strip.split('AND')
     p_temp = []
     p_or = []
+    mensaje = nil
+    puts 'Longitud de partes ' + partes.length.to_s
     partes.each do |i|
+      mensaje_tmp = valida_parentesis(i)
+      return mensaje_tmp unless mensaje_tmp.nil?
+
+      puts 'Valor de partes ' + i
+      puts 'Lonngitud de partes ' + i.strip.split(/!=|<|>|=/).length.to_s
       if i.strip.split(/!=|<|>|=/).length > 2
         puts 'MAS DE DOS'
         puts i.strip.split(/!=|<|>|=/).length
@@ -61,6 +70,8 @@ class Utility
           p_or.push(_y.strip)
         end
         puts 'pase 1111' if i.strip =~ /^\(/ && i.strip =~ /\)$/
+      elsif i.strip.split(/!=|<|>|=/).length < 2
+        return 'Error en condición, error de formato'
       else
         puts 'SOLO UNO'
         puts i.strip.split(/!=|<|>|=/).length
@@ -70,6 +81,36 @@ class Utility
     puts p_or
     puts '#####################'
     puts partes
+  end
+
+  def valida_parentesis(_cadena)
+    # validar orden de apertura y cierre de parentesis
+    # 1.verificar desde el inicio si hay apertura de parentesis
+    cont_parent_open = _cadena.count('(')
+    cont_parent_close = _cadena.count(')')
+    if cont_parent_open != cont_parent_close
+      return 'Error en condición, cantidad de parentesis.'
+    elsif cont_parent_open == 0
+      return nil
+    else
+      puts 'PRUEBAS DE PARENTESIS'
+
+      _cadena = _cadena.strip
+      estru = 0
+      _cadena.split('').each do |_i|
+        puts _i
+        if _i == '('
+          estru += 1
+        elsif _i == ')' && estru > 0
+          estru -= 1
+        elsif _i == ')' && estru == 0
+
+        end
+      end
+      puts _cadena.length
+    end
+
+    nil
   end
 
   def valida_condicon_or(_condicion); end

@@ -1,1 +1,235 @@
-{"url":"http://iclassroom.pbworks.com/w/page/12663802/Home","granularity":5.0,"pA":5.0,"dC":0.0,"rectangle":{"x":0,"y":0,"w":1669.0,"h":1567.0},"algo":"GT","align":"","ts":"20203372647","gran":{},"page":{"bid":"PAGE","label":"page","text":" iClassroom log inhelp WikiPages & Files View   Home Page history last edited by Angela Cunningham 3 years 9 months ago   Welcome to iClassroom!     Announcements    Did you know that you can get daily class updates & news by following iClassrmTweets or APUSHTweets on Twitter?     Our Studies    US History AP US History Civics   From Our Blog  Welcome to AP US History!Welcome to AP US Government!   Tutoring   Tutoring is available on Wednesdays from 2 05 until 3 05   Please let me know 24 hours in advance if you plan to stay Students wishing to make up any missing assignments are required to attend after school tutoring     Angela Cunningham Bullitt Central High School Highway 44 East Shepherdsville KY 40165 (502) 543-7021         Home Page Tools Insert links Insert links to other pages or uploaded files Pages Images and files Insert a link to a new page Loading No images or files uploaded yet Insert image from URL Tip To turn text into a link highlight the text then click on a page or file from the list above Comments (0) You dont have permission to comment on this page Printable version   PBworks / Help Terms of use / Privacy policy About this workspace Contact the owner / RSS feed / This workspace is public Navigator  AdministratorAssignment TemplatesClass HandbookClass ToolboxEducational GamesLesson PlansOur StudiesStudent Folders A-CStudent Folders D-EStudent Folders F-JStudent Folders K-MStudent Folders N-PStudent Folders Q-SStudent Folders T-ZStudent ShowcaseVideosAP GOV BlogsHomeSandboxoptionsPagesFiles   SideBar  Find Us Online   Our Studies Our Visitors Since June 10 2010 ﻿         Recent Activity  Show 0 new items Voki - Elizabeth 3edited by Angela CunninghamAP GOV Blogsedited by Angela CunninghamAP GOV Blogsedited by Angela CunninghamAP GOV Blogsadded by Angela CunninghamWeek of May 9added by Angela CunninghamWeek of March 28edited by Angela CunninghamWeek of March 28edited by Angela CunninghamMore activity   ","images":"","pa":5.0,"density":0,"area":2615.323,"mass":0,"ratio":0,"rectangle":{"x":0,"y":0,"w":1669.0,"h":1567.0},"parent":"none","elements":[],"children":[{"bid":"G1","label":"","text":"","images":"","pa":5.0,"density":0,"area":51.615,"mass":0,"ratio":0,"rectangle":{"x":0.0,"y":0.0,"w":1665.0,"h":31.0},"parent":"PAGE","tcount":5,"ecount":9,"elements":[],"children":[]},{"bid":"G2","label":"","text":"","images":"","pa":5.0,"density":0,"area":46.368,"mass":0,"ratio":0,"rectangle":{"x":0.0,"y":32.0,"w":1656.0,"h":60.0},"parent":"PAGE","tcount":4,"ecount":7,"elements":[],"children":[]},{"bid":"G3","label":"","text":"","images":"","pa":5.0,"density":0,"area":41.137,"mass":0,"ratio":0,"rectangle":{"x":14.0,"y":86.0,"w":1341.0,"h":117.0},"parent":"PAGE","tcount":3,"ecount":3,"elements":[],"children":[]},{"bid":"G4","label":"","text":"","images":"","pa":5.0,"density":0,"area":87.569,"mass":0,"ratio":0,"rectangle":{"x":18.0,"y":126.0,"w":1325.0,"h":193.0},"parent":"PAGE","tcount":17,"ecount":6,"elements":[],"children":[]},{"bid":"G5","label":"","text":"","images":"","pa":5.0,"density":0,"area":1501.173,"mass":0,"ratio":0,"rectangle":{"x":30.0,"y":215.0,"w":1323.0,"h":1376.0},"parent":"PAGE","tcount":75,"ecount":110,"elements":[],"children":[]},{"bid":"G6","label":"","text":"","images":"","pa":5.0,"density":0,"area":64.67,"mass":0,"ratio":0,"rectangle":{"x":1353.0,"y":126.0,"w":1643.0,"h":349.0},"parent":"PAGE","tcount":26,"ecount":51,"elements":[],"children":[]},{"bid":"G7","label":"","text":"","images":"","pa":5.0,"density":0,"area":183.57,"mass":0,"ratio":0,"rectangle":{"x":1353.0,"y":365.0,"w":1643.0,"h":998.0},"parent":"PAGE","tcount":11,"ecount":63,"elements":[],"children":[]},{"bid":"G8","label":"","text":"","images":"","pa":5.0,"density":0,"area":119.48,"mass":0,"ratio":0,"rectangle":{"x":1353.0,"y":1014.0,"w":1643.0,"h":1426.0},"parent":"PAGE","tcount":47,"ecount":39,"elements":[],"children":[]},{"bid":"G9","label":"","text":"","images":"","pa":5.0,"density":0,"area":210.993,"mass":0,"ratio":0,"rectangle":{"x":14.0,"y":1396.0,"w":1341.0,"h":1555.0},"parent":"PAGE","tcount":32,"ecount":41,"elements":[],"children":[]}]}}
+{
+  "url": "http://iclassroom.pbworks.com/w/page/12663802/Home",
+  "granularity": 5,
+  "pA": 5,
+  "dC": 0,
+  "rectangle": {
+    "x": 0,
+    "y": 0,
+    "w": 1669,
+    "h": 1567
+  },
+  "algo": "GT",
+  "align": "",
+  "ts": "20203372647",
+  "gran": {},
+  "page": {
+    "bid": "PAGE",
+    "label": "page",
+    "text": " iClassroom log inhelp WikiPages & Files View   Home Page history last edited by Angela Cunningham 3 years 9 months ago   Welcome to iClassroom!     Announcements    Did you know that you can get daily class updates & news by following iClassrmTweets or APUSHTweets on Twitter?     Our Studies    US History AP US History Civics   From Our Blog  Welcome to AP US History!Welcome to AP US Government!   Tutoring   Tutoring is available on Wednesdays from 2 05 until 3 05   Please let me know 24 hours in advance if you plan to stay Students wishing to make up any missing assignments are required to attend after school tutoring     Angela Cunningham Bullitt Central High School Highway 44 East Shepherdsville KY 40165 (502) 543-7021         Home Page Tools Insert links Insert links to other pages or uploaded files Pages Images and files Insert a link to a new page Loading No images or files uploaded yet Insert image from URL Tip To turn text into a link highlight the text then click on a page or file from the list above Comments (0) You dont have permission to comment on this page Printable version   PBworks / Help Terms of use / Privacy policy About this workspace Contact the owner / RSS feed / This workspace is public Navigator  AdministratorAssignment TemplatesClass HandbookClass ToolboxEducational GamesLesson PlansOur StudiesStudent Folders A-CStudent Folders D-EStudent Folders F-JStudent Folders K-MStudent Folders N-PStudent Folders Q-SStudent Folders T-ZStudent ShowcaseVideosAP GOV BlogsHomeSandboxoptionsPagesFiles   SideBar  Find Us Online   Our Studies Our Visitors Since June 10 2010 \ufeff         Recent Activity  Show 0 new items Voki - Elizabeth 3edited by Angela CunninghamAP GOV Blogsedited by Angela CunninghamAP GOV Blogsedited by Angela CunninghamAP GOV Blogsadded by Angela CunninghamWeek of May 9added by Angela CunninghamWeek of March 28edited by Angela CunninghamWeek of March 28edited by Angela CunninghamMore activity   ",
+    "images": "",
+    "pa": 5,
+    "density": 0,
+    "area": 2615.323,
+    "mass": 0,
+    "ratio": 0,
+    "rectangle": {
+      "x": 0,
+      "y": 0,
+      "w": 1669,
+      "h": 1567
+    },
+    "parent": "none",
+    "elements": [],
+    "children": [
+      {
+        "bid": "G1",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 51.615,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 0,
+          "y": 0,
+          "w": 1665,
+          "h": 31
+        },
+        "parent": "PAGE",
+        "tcount": 5,
+        "ecount": 9,
+        "elements": [],
+        "children": []
+      },
+      {
+        "bid": "G2",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 46.368,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 0,
+          "y": 32,
+          "w": 1656,
+          "h": 60
+        },
+        "parent": "PAGE",
+        "tcount": 4,
+        "ecount": 7,
+        "elements": [],
+        "children": []
+      },
+      {
+        "bid": "G3",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 41.137,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 14,
+          "y": 86,
+          "w": 1341,
+          "h": 117
+        },
+        "parent": "PAGE",
+        "tcount": 3,
+        "ecount": 3,
+        "elements": [],
+        "children": []
+      },
+      {
+        "bid": "G4",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 87.569,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 18,
+          "y": 126,
+          "w": 1325,
+          "h": 193
+        },
+        "parent": "PAGE",
+        "tcount": 17,
+        "ecount": 6,
+        "elements": [],
+        "children": []
+      },
+      {
+        "bid": "G5",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 1501.173,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 30,
+          "y": 215,
+          "w": 1323,
+          "h": 1376
+        },
+        "parent": "PAGE",
+        "tcount": 75,
+        "ecount": 110,
+        "elements": [],
+        "children": []
+      },
+      {
+        "bid": "G6",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 64.67,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 1353,
+          "y": 126,
+          "w": 1643,
+          "h": 349
+        },
+        "parent": "PAGE",
+        "tcount": 26,
+        "ecount": 51,
+        "elements": [],
+        "children": []
+      },
+      {
+        "bid": "G7",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 183.57,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 1353,
+          "y": 365,
+          "w": 1643,
+          "h": 998
+        },
+        "parent": "PAGE",
+        "tcount": 11,
+        "ecount": 63,
+        "elements": [],
+        "children": []
+      },
+      {
+        "bid": "G8",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 119.48,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 1353,
+          "y": 1014,
+          "w": 1643,
+          "h": 1426
+        },
+        "parent": "PAGE",
+        "tcount": 47,
+        "ecount": 39,
+        "elements": [],
+        "children": []
+      },
+      {
+        "bid": "G9",
+        "label": "",
+        "text": "",
+        "images": "",
+        "pa": 5,
+        "density": 0,
+        "area": 210.993,
+        "mass": 0,
+        "ratio": 0,
+        "rectangle": {
+          "x": 14,
+          "y": 1396,
+          "w": 1341,
+          "h": 1555
+        },
+        "parent": "PAGE",
+        "tcount": 32,
+        "ecount": 41,
+        "elements": [],
+        "children": []
+      }
+    ]
+  }
+}

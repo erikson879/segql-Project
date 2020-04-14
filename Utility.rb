@@ -94,9 +94,9 @@ class Utility
       return nil
     else
       puts 'PRUEBAS DE PARENTESIS'
-
       _cadena = _cadena.strip
       estru = 0
+      # valido estructura de apertura y cierre de parentesis
       _cadena.split('').each do |_i|
         puts _i
         if _i == '('
@@ -104,9 +104,24 @@ class Utility
         elsif _i == ')' && estru > 0
           estru -= 1
         elsif _i == ')' && estru == 0
-
+          return 'Error en condición, estrutura de sentencia.'
         end
       end
+      # granularizar los segmentos entre parentesis
+      cantidad_aperturas = 0
+      pos_apertura = 0
+      pos_primer_cierre = 0
+      _cadena.split('').each do |_i|
+        if _i == ')'
+          break
+        else
+          posicion_cierre += 1
+        end
+
+        pos_apertura += 1 if _i == '('
+        cantidad_aperturas += 1 if _i == '('
+      end
+      puts 'Valor variable estru ' + estru.to_s
       puts _cadena.length
     end
 

@@ -104,7 +104,14 @@ class Utility
       _nodos_hash[contador_nodos] = nodo
       parentesis(cadena_final, _nodos_hash)
     else
-      _nodos_hash[0] = cadena_final
+      if !nodo.nil? && !cadena_final.empty?
+        _nodos_hash[1] = nodo
+      elsif !nodo.nil?
+        _nodos_hash[0] = nodo
+      end
+      if _nodos_hash[0].nil? || _nodos_hash[0].empty?
+        _nodos_hash[0] = cadena_final
+      end
     end
     _nodos_hash
   end

@@ -73,7 +73,7 @@ class Utility
     # return nil if _condicion.nil? || _condicion.empty?
 
     contador_nodos = 0
-    puts _condicion
+    # puts _condicion
     _condicion.each do |_i|
       # puts 'vuelta ' + _i
       contador_nodos += 1 if _i == '('

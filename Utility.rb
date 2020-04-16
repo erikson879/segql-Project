@@ -49,38 +49,88 @@ class Utility
   end
 
   def valida_condicon(_condicion)
+    _valor_retorno = nil
     puts 'llego a valida_condicon(_condicion)'
     partes = _condicion.upcase.strip.split('AND')
     p_temp = []
     p_or = []
     mensaje = nil
     puts 'Longitud de partes ' + partes.length.to_s
-    partes.each do |i|
-      mensaje_tmp = valida_parentesis(i)
-      return mensaje_tmp unless mensaje_tmp.nil?
+    # SEGUNDA VERSION DE PROCESAMIENTO
+    _valor_retorno = valida_cantidad_orden_parentesis(_condicion)
+    return _valor_retorno unless _valor_retorno.nil?
 
-      puts 'Valor de partes ' + i
-      puts 'Lonngitud de partes ' + i.strip.split(/!=|<|>|=/).length.to_s
-      if i.strip.split(/!=|<|>|=/).length > 2
-        puts 'MAS DE DOS'
-        puts i.strip.split(/!=|<|>|=/).length
-        puts i.strip
-        i.strip.split(/^\(/) do |_y|
-          puts 'pase'
-          p_or.push(_y.strip)
+    puts 'llamada a la funcion PARENTESIS'
+    _nodos_hash = {}
+    _nodos_hash = parentesis(_condicion, _nodos_hash)
+    puts _nodos_hash
+    _valor_retorno
+  end
+
+  def parentesis(_condicion, _nodos_hash)
+    _condicion = _condicion.strip
+    _condicion = _condicion.split('')
+    # return nil if _condicion.nil? || _condicion.empty?
+
+    contador_nodos = 0
+    puts _condicion
+    _condicion.each do |_i|
+      # puts 'vuelta ' + _i
+      contador_nodos += 1 if _i == '('
+    end
+    puts 'contador_nodos ' + contador_nodos.to_s
+    contador = 0
+    nodo = ''
+    fin = 0
+    _condicion.each do |_i|
+      contador += 1 if _i == '('
+      if contador_nodos == contador
+        if _i == ')' && fin == 0
+          nodo += _i
+          fin = 1
+        elsif  fin == 0
+          nodo += _i
         end
-        puts 'pase 1111' if i.strip =~ /^\(/ && i.strip =~ /\)$/
-      elsif i.strip.split(/!=|<|>|=/).length < 2
-        return 'Error en condición, error de formato'
-      else
-        puts 'SOLO UNO'
-        puts i.strip.split(/!=|<|>|=/).length
       end
     end
-    puts '#####################'
-    puts p_or
-    puts '#####################'
-    puts partes
+    puts nodo
+    cadena_final = ''
+    _condicion.each do |_i|
+      cadena_final += _i
+    end
+    cadena_final = cadena_final.sub(nodo, '')
+    puts 'con delete ' + cadena_final
+    if cadena_final.include?('(')
+      _nodos_hash[contador_nodos] = nodo
+      parentesis(cadena_final, _nodos_hash)
+    else
+      _nodos_hash[0] = cadena_final
+    end
+    _nodos_hash
+  end
+
+  def valida_cantidad_orden_parentesis(_condicion)
+    cont_parent_open = _condicion.count('(')
+    cont_parent_close = _condicion.count(')')
+    if cont_parent_open != cont_parent_close
+      return 'Error en condición, cantidad de parentesis.'
+    end
+
+    contador = 0
+    _condicion = _condicion.split('')
+    _condicion.each do |_i|
+      if _i == '('
+        contador += 1
+      elsif _i == ')'
+        contador -= 1
+      end
+      return 'Error en condición, orden de parentesis.' if contador < 0
+    end
+    if contador != 0
+      return 'Error en condición, parentesis no termina correctamente.'
+    end
+
+    nil
   end
 
   def valida_parentesis(_cadena)
@@ -108,6 +158,7 @@ class Utility
         end
       end
       # granularizar los segmentos entre parentesis
+      arbol_condicion = {}
       cantidad_aperturas = 0
       pos_apertura = 0
       pos_primer_cierre = 0

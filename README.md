@@ -3,7 +3,7 @@ Final Project to course analyzing web doc
 
 Para pruebas debe ejecutar el archivo
 
-projects.rb
+project.rb
 
 Ir en cualquier navegador
 

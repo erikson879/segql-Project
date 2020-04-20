@@ -9,12 +9,20 @@
 require 'open-uri'
 require 'json'
 class Utility
-  def validaEstructura(_param)
-    mensaje = ''
-    partes = limpiar_line_empty(limpiar_return_line(_param))
+
+  @archivo_json
+
+  def initialize(archivo_json)
+    @archivo_json = archivo_json
+  end
+
+  def validaEstructura(param)
+    partes = limpiar_line_empty(limpiar_return_line(param))
     funcion = partes[0].strip unless partes[0].nil?
-    mensaje = validaUbicacionFuncion(partes, funcion)
-    return mensaje unless mensaje.empty?
+    mensaje = valida_ubicacion_funcion(partes, funcion)
+    p 'mi mensaje'
+    p mensaje
+    return mensaje unless mensaje.nil? || mensaje.empty?
 
     atributos = partes[1].strip unless partes[1].nil?
     atr = valida_atributos(atributos)
@@ -48,23 +56,47 @@ class Utility
     mensaje
   end
 
-  def valida_condicon(_condicion)
-    _valor_retorno = nil
+  def g_atri_condic(nodos_hash)
+    atributos = g_atributos @archivo_json
+    #nodos_hash.sort.map do |_i, _j|
+    nodos_hash.each do |_i, _j|
+      puts _i.to_s + ' : ' + _j.to_s
+      temp = _j.upcase
+      if temp.match(/(^\(.*\)$)/)
+        temp = temp.split('')
+        temp.shift
+        temp.pop
+        temp1 = ''
+        temp.each do |w|
+          temp1 += w
+        end
+        temp = temp1
+      end
+      temp = temp.split(/(AND)/)
+      puts 'INICIO temp por AND y OR'
+      temp.each do |o|
+        puts o
+        puts 'perfecto: ' + o.to_s 
+        if o.include?('=') || o.include?('>') || o.include?('<')
+          puts 'perfecto: ' + o.to_s 
+        end
+      end
+      puts 'FIN temp por AND y OR'
+      puts 'temp'
+      puts temp
+    end
+  end
 
-    partes = _condicion.upcase.strip.split('AND')
-    p_temp = []
-    p_or = []
-    mensaje = nil
+  def valida_condicon(condicion)
+    partes = condicion.upcase.strip.split('AND')
     puts 'Longitud de partes ' + partes.length.to_s
-    # SEGUNDA VERSION DE PROCESAMIENTO
-    _valor_retorno = valida_cantidad_orden_parentesis(_condicion)
-    return _valor_retorno unless _valor_retorno.nil?
+    valor_retorno = valida_cantidad_orden_parentesis(condicion)
+    return valor_retorno unless valor_retorno.nil?
 
-    _nodos_hash = {}
-    _nodos_hash = parentesis(_condicion, _nodos_hash)
-    puts '_nodos_hash'
-    puts _nodos_hash
-    _valor_retorno
+    nodos_hash = {}
+    nodos_hash = parentesis(condicion, nodos_hash)
+    g_atri_condic(nodos_hash)
+    valor_retorno
   end
 
   def get_cantidad_nodos(_condicion)
@@ -82,21 +114,18 @@ class Utility
     _nodos_hash = {} if _nodos_hash.nil?
     _condicion = _condicion.strip
     contador_nodos = get_cantidad_nodos(_condicion)
-    puts 'contador_nodos ' + contador_nodos.to_s
     contador = 0
     contador += 1 unless _condicion.match(/^\(.*\)$/)
-    puts '-contador ' + contador.to_s
     _condicion = _condicion.split('')
-    puts 'contador_nodos ' + contador_nodos.to_s
     nodo = ''
     fin = 0
     _condicion.each do |_i|
       contador += 1 if _i == '('
       if contador_nodos == contador
-        if _i == ')' && fin == 0
+        if _i == ')' && fin.zero?
           nodo += _i
           fin = 1
-        elsif  fin == 0
+        elsif  fin.zero?
           nodo += _i
         end
       end
@@ -107,17 +136,14 @@ class Utility
     end
 
     cadena_final = cadena_final.sub(nodo, (contador_nodos - 1).to_s)
-    puts 'con delete ' + cadena_final
-    puts 'contador_nodos ' + contador_nodos.to_s
     if contador > 1
-      _nodos_hash[contador_nodos - 1] = nodo
+      _nodos_hash[(contador_nodos - 1).to_s] = nodo
       parentesis(cadena_final, _nodos_hash)
     else
       if !contador_nodos.nil? && !nodo.nil?
-        _nodos_hash[contador_nodos - 1] = nodo
+        _nodos_hash[(contador_nodos - 1).to_s] = nodo
       end
     end
-    puts _nodos_hash
     _nodos_hash
   end
 
@@ -136,7 +162,7 @@ class Utility
       elsif _i == ')'
         contador -= 1
       end
-      return 'Error en condición, orden de parentesis.' if contador < 0
+      return 'Error en condición, orden de parentesis.' if contador.negative?
     end
     if contador != 0
       return 'Error en condición, parentesis no termina correctamente.'
@@ -191,8 +217,6 @@ class Utility
     nil
   end
 
-  def valida_condicon_or(_condicion); end
-
   def valida_url(_url)
     begin
       if !_url.nil?
@@ -228,30 +252,31 @@ class Utility
     partes
   end
 
-  def validaUbicacionFuncion(_partes, _funcion)
-    if _funcion != 'merge' && _funcion != 'select'
-      return 'Consulta mal estructurada desde el inicio'
+  def valida_ubicacion_funcion(partes,funcion)
+    if funcion != 'merge' && funcion != 'select'
+      'Consulta mal estructurada desde el inicio'
     else
       ind = 0
-      _partes.each do |_i|
+      partes.each do |i|
         if ind != 0
-          if _i == 'merge'
+          if i == 'merge'
             return 'Se encontro MERGE en ubicación inesperada'
-          elsif _i == 'select'
+          elsif i == 'select'
             return 'Se encontro SELECT en ubicación inesperada'
           end
         end
         ind += 1
       end
-      ind = 0
     end
-
     ''
   end
 
-  def getAtributos(_archivo)
-    archivo = File.open _archivo
-    archivo = JSON.load archivo
+  def g_atributos(archivo)
+    temp = ''
+    File.open archivo do |s|
+      temp += s.read
+    end 
+    archivo = JSON.parse temp
     arr = []
     archivo['page']['children'][0].each do |_i, _j|
       arr.push(_i)
@@ -260,7 +285,7 @@ class Utility
   end
 
   def valida_atributos(_atributos_raw)
-    atributos_json = getAtributos('segmentacion.json')
+    atributos_json = g_atributos(@archivo_json)
     return atributos_json if _atributos_raw == '*'
 
     atributos = _atributos_raw.strip.split(',')

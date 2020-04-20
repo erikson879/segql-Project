@@ -11,7 +11,7 @@ require 'json'
 require 'erb'
 require './Utility'
 
-uti = Utility.new
+uti = Utility.new('segmentacion.json')
 funcion = { 0 => 'SELECT', 1 => 'MERGE' }
 
 get '/segql' do

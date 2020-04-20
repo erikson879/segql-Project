@@ -50,7 +50,7 @@ class Utility
 
   def valida_condicon(_condicion)
     _valor_retorno = nil
-    puts 'llego a valida_condicon(_condicion)'
+
     partes = _condicion.upcase.strip.split('AND')
     p_temp = []
     p_or = []
@@ -60,26 +60,34 @@ class Utility
     _valor_retorno = valida_cantidad_orden_parentesis(_condicion)
     return _valor_retorno unless _valor_retorno.nil?
 
-    puts 'llamada a la funcion PARENTESIS'
     _nodos_hash = {}
     _nodos_hash = parentesis(_condicion, _nodos_hash)
+    puts '_nodos_hash'
     puts _nodos_hash
     _valor_retorno
   end
 
-  def parentesis(_condicion, _nodos_hash)
+  def get_cantidad_nodos(_condicion)
     _condicion = _condicion.strip
-    _condicion = _condicion.split('')
-    # return nil if _condicion.nil? || _condicion.empty?
-
     contador_nodos = 0
-    # puts _condicion
+    contador_nodos += 1 unless _condicion.match(/^\(.*\)$/)
+    _condicion = _condicion.split('')
     _condicion.each do |_i|
-      # puts 'vuelta ' + _i
       contador_nodos += 1 if _i == '('
     end
+    contador_nodos
+  end
+
+  def parentesis(_condicion, _nodos_hash)
+    _nodos_hash = {} if _nodos_hash.nil?
+    _condicion = _condicion.strip
+    contador_nodos = get_cantidad_nodos(_condicion)
     puts 'contador_nodos ' + contador_nodos.to_s
     contador = 0
+    contador += 1 unless _condicion.match(/^\(.*\)$/)
+    puts '-contador ' + contador.to_s
+    _condicion = _condicion.split('')
+    puts 'contador_nodos ' + contador_nodos.to_s
     nodo = ''
     fin = 0
     _condicion.each do |_i|
@@ -93,26 +101,23 @@ class Utility
         end
       end
     end
-    puts nodo
     cadena_final = ''
     _condicion.each do |_i|
       cadena_final += _i
     end
-    cadena_final = cadena_final.sub(nodo, '')
+
+    cadena_final = cadena_final.sub(nodo, (contador_nodos - 1).to_s)
     puts 'con delete ' + cadena_final
-    if cadena_final.include?('(')
-      _nodos_hash[contador_nodos] = nodo
+    puts 'contador_nodos ' + contador_nodos.to_s
+    if contador > 1
+      _nodos_hash[contador_nodos - 1] = nodo
       parentesis(cadena_final, _nodos_hash)
     else
-      if !nodo.nil? && !cadena_final.empty?
-        _nodos_hash[1] = nodo
-      elsif !nodo.nil?
-        _nodos_hash[0] = nodo
-      end
-      if _nodos_hash[0].nil? || _nodos_hash[0].empty?
-        _nodos_hash[0] = cadena_final
+      if !contador_nodos.nil? && !nodo.nil?
+        _nodos_hash[contador_nodos - 1] = nodo
       end
     end
+    puts _nodos_hash
     _nodos_hash
   end
 

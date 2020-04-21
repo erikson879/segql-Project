@@ -20,8 +20,6 @@ class Utility
     partes = limpiar_line_empty(limpiar_return_line(param))
     funcion = partes[0].strip unless partes[0].nil?
     mensaje = valida_ubicacion_funcion(partes, funcion)
-    p 'mi mensaje'
-    p mensaje
     return mensaje unless mensaje.nil? || mensaje.empty?
 
     atributos = partes[1].strip unless partes[1].nil?
@@ -57,7 +55,11 @@ class Utility
   end
 
   def g_atri_condic(nodos_hash)
+    datos_json = g_datos(@archivo_json)
+    p datos_json['page']['children']
+    p nodos_hash 
     atributos = g_atributos @archivo_json
+    p atributos 
     #nodos_hash.sort.map do |_i, _j|
     nodos_hash.each do |_i, _j|
       puts _i.to_s + ' : ' + _j.to_s
@@ -72,24 +74,60 @@ class Utility
         end
         temp = temp1
       end
-      temp = temp.split(/(AND)/)
+      temp = temp.split(/(AND|OR)/)
       puts 'INICIO temp por AND y OR'
-      temp.each do |o|
-        puts o
-        puts 'perfecto: ' + o.to_s 
-        if o.include?('=') || o.include?('>') || o.include?('<')
+      if temp.length > 1 
+        puts 'mayor a uno'
+        temp.each do |o|
+          puts o
           puts 'perfecto: ' + o.to_s 
+          if o.include?('=') || o.include?('>') || o.include?('<')
+            puts 'perfecto: ' + o.to_s 
+          end
+        end
+      else 
+        puts 'menor a uno'
+        temp.each do |i|
+          puts 'else' + i.to_s
+          v_a = i.split(/(=|>|<)/)
+          p v_a
+          v = nil
+          a = nil
+          operador = v_a[1]
+          v_a.delete_at(1)
+          puts v_a
+          v_a.each do |q|
+            if atributos.include? q
+              a = q
+            else
+              v = q
+            end
+          end
+          return 'Condición posee un formato incorrecto' if a.nil? || v.nil?
+
+          datos_json['page']['children'].each do |r|
+            puts r 
+            if r[a] != v
+              puts datos_json 
+              datos_json['page']['children'].delete_if {|g| g['bid'] == r['bid']}
+              puts datos_json 
+              puts '---------------------------------------------------------------------'
+              puts datos_json
+            end
+          end
         end
       end
       puts 'FIN temp por AND y OR'
       puts 'temp'
       puts temp
+      puts 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
+      puts datos_json
+      puts 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
     end
   end
 
   def valida_condicon(condicion)
     partes = condicion.upcase.strip.split('AND')
-    puts 'Longitud de partes ' + partes.length.to_s
     valor_retorno = valida_cantidad_orden_parentesis(condicion)
     return valor_retorno unless valor_retorno.nil?
 
@@ -135,7 +173,7 @@ class Utility
       cadena_final += _i
     end
 
-    cadena_final = cadena_final.sub(nodo, (contador_nodos - 1).to_s)
+    cadena_final = cadena_final.sub(nodo, '#' + (contador_nodos - 1).to_s + '#')
     if contador > 1
       _nodos_hash[(contador_nodos - 1).to_s] = nodo
       parentesis(cadena_final, _nodos_hash)
@@ -178,7 +216,7 @@ class Utility
     cont_parent_close = _cadena.count(')')
     if cont_parent_open != cont_parent_close
       return 'Error en condición, cantidad de parentesis.'
-    elsif cont_parent_open == 0
+    elsif cont_parent_open.zero?
       return nil
     else
       puts 'PRUEBAS DE PARENTESIS'
@@ -279,9 +317,17 @@ class Utility
     archivo = JSON.parse temp
     arr = []
     archivo['page']['children'][0].each do |_i, _j|
-      arr.push(_i)
+      arr.push(_i.upcase)
     end
     arr
+  end
+
+  def g_datos(archivo)
+    temp = ''
+    File.open archivo do |s|
+      temp += s.read
+    end
+    JSON.parse temp
   end
 
   def valida_atributos(_atributos_raw)

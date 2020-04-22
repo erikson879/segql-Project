@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 # frozen_string_literal: true
 
 #   @profesor
@@ -94,7 +95,18 @@ class Utility
         
         temp.each do |i|
           puts 'else' + i.to_s
-          v_a = i.split(/(=|>|<|<>|!=)/)
+          #puts v_a.class
+          #puts v_a
+          j = i.split(/(<>|!=|<=|>=)/)
+          puts j.length
+          puts j
+          if j.length == 1
+            v_a = i.split(/(=|>|<)/) 
+          else
+            v_a = j 
+          end
+          puts v_a.length
+          puts v_a
           operacion(v_a, datos_json)
           p v_a
           v = nil
@@ -142,10 +154,9 @@ class Utility
   def operacion(arr_funcion, datos)
     v = nil
     a = nil
-    final = nil
+    final = []
     puts 'Estoy en operacion'
     datos = datos['page']['children']
-    puts datos
     'Formato invalido en operación.' if arr_funcion.length > 3
 
     'Blockset nulo o vacio.' if datos.nil? || datos.empty?
@@ -153,16 +164,12 @@ class Utility
     atributos = g_atributos @archivo_json
     'Atributos nulo o vacio.' if atributos.nil? || atributos.empty?
 
-    p arr_funcion    
     operador = arr_funcion[1].strip
     arr_funcion.delete_at(1)
     arr_funcion.each do |q|
       if atributos.include? q.strip.upcase
-        puts 'llenando variable a'
-        a = q.strip.downcase        
-        puts a
+        a = q.strip.downcase
       else
-        puts 'llenando variable v'
         v = q.strip.upcase
         if v.match(/^\'.*\'$/)
           v = v.split('')
@@ -174,23 +181,57 @@ class Utility
           end
           v = v_temp
         end
-        puts v
       end
     end
     'Atributo invalido para el dataset.' if a.nil? || a.empty?
 
-    'Operador invalido.' unless operador.match(/(=|>|<|<>|!=)/)
+    'Operador invalido.' unless operador.match(/(=|<>|>|<|!=)/)
 
     puts 'iterando inicio'
-    if operador == '='            
+    puts 'operador' + operador
+    if operador == '='
+      puts 'entre por ='
       datos.each do |it|
         final.push(it) if it[a] == v
-      end      
-    elsif operador == '!='
 
-    #elsif operador == '<>'
-    #elsif operador == '='
+      end
+    elsif operador == '!=' || operador == '<>'
+      puts 'entre por <>'
+      datos.each do |it|
+        final.push(it) unless it[a] == v
+
+      end
+    elsif operador == '<'
+      puts 'entre por <'
+      v = v.to_f 
+      datos.each do |it|
+        final.push(it) if it[a].to_f < v
+
+      end
+    elsif operador == '>'
+      puts 'entre por >'
+      v = v.to_f 
+      datos.each do |it|
+        final.push(it) if it[a].to_f < v
+
+      end
+    elsif operador == '>='
+      puts 'entre por >='
+      v = v.to_f 
+      datos.each do |it|
+        final.push(it) if it[a].to_f >= v
+
+      end
+    elsif operador == '<='
+      puts 'entre por <='
+      v = v.to_f 
+      datos.each do |it|
+        final.push(it) if it[a].to_f <= v
+
+      end
     end
+    puts 'RESULT BLOCKSET'
+    puts final 
     final
   end
 
@@ -374,7 +415,6 @@ class Utility
         ind += 1
       end
     end
-    ''
   end
 
   def g_atributos(archivo)

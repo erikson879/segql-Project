@@ -56,9 +56,12 @@ class Utility
 
   def g_atri_condic(nodos_hash)
     datos_json = g_datos(@archivo_json)
+    p "datos_json['page']['children']"
     p datos_json['page']['children']
+    p 'nodo_hash'
     p nodos_hash 
     atributos = g_atributos @archivo_json
+    p 'atributos'
     p atributos 
     #nodos_hash.sort.map do |_i, _j|
     nodos_hash.each do |_i, _j|
@@ -77,6 +80,7 @@ class Utility
       temp = temp.split(/(AND|OR)/)
       puts 'INICIO temp por AND y OR'
       if temp.length > 1 
+        # si temp tiene mas de uno tiene mas de una evaluación 
         puts 'mayor a uno'
         temp.each do |o|
           puts o
@@ -87,28 +91,37 @@ class Utility
         end
       else 
         puts 'menor a uno'
+        
         temp.each do |i|
           puts 'else' + i.to_s
-          v_a = i.split(/(=|>|<)/)
+          v_a = i.split(/(=|>|<|<>|!=)/)
+          operacion(v_a, datos_json)
           p v_a
           v = nil
           a = nil
           operador = v_a[1]
           v_a.delete_at(1)
           puts v_a
+
           v_a.each do |q|
-            if atributos.include? q
+            if atributos.include? q.strip.upcase
+              puts 'llenando variable a'
               a = q
+              puts a 
             else
+              puts 'llenando variable v'
               v = q
+              puts v
             end
           end
           return 'Condición posee un formato incorrecto' if a.nil? || v.nil?
 
           datos_json['page']['children'].each do |r|
             puts r 
-            if r[a] != v
+            if r[a] == v
               puts datos_json 
+              puts r[a]
+              puts v
               datos_json['page']['children'].delete_if {|g| g['bid'] == r['bid']}
               puts datos_json 
               puts '---------------------------------------------------------------------'
@@ -124,6 +137,61 @@ class Utility
       puts datos_json
       puts 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
     end
+  end
+
+  def operacion(arr_funcion, datos)
+    v = nil
+    a = nil
+    final = nil
+    puts 'Estoy en operacion'
+    datos = datos['page']['children']
+    puts datos
+    'Formato invalido en operación.' if arr_funcion.length > 3
+
+    'Blockset nulo o vacio.' if datos.nil? || datos.empty?
+
+    atributos = g_atributos @archivo_json
+    'Atributos nulo o vacio.' if atributos.nil? || atributos.empty?
+
+    p arr_funcion    
+    operador = arr_funcion[1].strip
+    arr_funcion.delete_at(1)
+    arr_funcion.each do |q|
+      if atributos.include? q.strip.upcase
+        puts 'llenando variable a'
+        a = q.strip.downcase        
+        puts a
+      else
+        puts 'llenando variable v'
+        v = q.strip.upcase
+        if v.match(/^\'.*\'$/)
+          v = v.split('')
+          v.shift
+          v.pop
+          v_temp = ''
+          v.each do |t|
+            v_temp += t
+          end
+          v = v_temp
+        end
+        puts v
+      end
+    end
+    'Atributo invalido para el dataset.' if a.nil? || a.empty?
+
+    'Operador invalido.' unless operador.match(/(=|>|<|<>|!=)/)
+
+    puts 'iterando inicio'
+    if operador == '='            
+      datos.each do |it|
+        final.push(it) if it[a] == v
+      end      
+    elsif operador == '!='
+
+    #elsif operador == '<>'
+    #elsif operador == '='
+    end
+    final
   end
 
   def valida_condicon(condicion)
@@ -169,8 +237,8 @@ class Utility
       end
     end
     cadena_final = ''
-    _condicion.each do |_i|
-      cadena_final += _i
+    _condicion.each do |i|
+      cadena_final += i
     end
 
     cadena_final = cadena_final.sub(nodo, '#' + (contador_nodos - 1).to_s + '#')
@@ -330,14 +398,20 @@ class Utility
     JSON.parse temp
   end
 
-  def valida_atributos(_atributos_raw)
+  def valida_atributos(atributos_raw)
     atributos_json = g_atributos(@archivo_json)
-    return atributos_json if _atributos_raw == '*'
+    return atributos_json if atributos_raw == '*'
 
-    atributos = _atributos_raw.strip.split(',')
-    atributos.each do |_a|
-      return 'Lista de atributos invalida' unless atributos_json.include? _a
+    atributos = atributos_raw.strip.split(',')
+    puts 'atributos'
+    puts atributos
+    puts 'atributos_json'
+    puts atributos_json
+    atributos.each do |a|
+
+      puts 'a' + a
+      return 'Lista de atributos invalida' unless atributos_json.include? a
     end
     atributos
-  end
+  end  
 end

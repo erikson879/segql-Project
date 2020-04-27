@@ -11,6 +11,8 @@
   <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/js/propio.js"></script>
     <title>SEGQL</title>
   </head>
   <body>
@@ -54,13 +56,20 @@
         </div>
         <div class="col-8">
           <form action="segqlejecucion" method="post">
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 5px;">
               <label for="exampleFormControlTextarea1">Editor de query</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="12" name="query" required><%= consulta %></textarea>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" name="query" required><%= consulta %></textarea>
             </div>
-            <button type="submit" class="btn btn-success">Ejecutar</button>
+            <button type="submit" class="btn btn-success" style="margin-bottom: 5px;">Ejecutar</button>
           </form>
-          <div id="prueba" ><%= mensaje %></div>
+          <div class="card text-center">          
+            <div class="card-header text-muted" style="padding-top: 2px;padding-bottom: 2px;">
+              <%= mensaje %>
+            </div>
+            <div class="card-footer text-muted" style="padding-top: 2px;padding-bottom: 2px;">              
+              <%= yield %>
+            </div>
+          </div>
         </div>
 
       </div>

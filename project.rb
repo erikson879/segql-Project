@@ -18,11 +18,17 @@ funcion = { 0 => 'SELECT', 1 => 'MERGE' }
 get '/segql' do
   send_file 'pages/homePage.html'
 end
+
 post '/segqlejecucion' do
   consulta = params[:query]
-  mensaje = uti.validaEstructura params[:query]
-  mensaje = 'TODO OK' if mensaje.empty?
-  puts mensaje
-  puts consulta
-  erb :respuesta, locals: { mensaje: mensaje, consulta: consulta }
+  mensaje = uti.validaEstructura consulta
+  if mensaje.nil? || mensaje.empty?
+    mensaje = 'TODO OK'
+  elsif mensaje.class == Array 
+    tabla = mensaje
+    mensaje = "%d fila(s) retornada(s)." % [mensaje.length]
+  end
+  puts 'TABLA'
+  puts tabla
+  erb :tabla, :layout => :respuesta, locals: { mensaje: mensaje, consulta: consulta , tabla: tabla}
 end

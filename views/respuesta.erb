@@ -12,13 +12,18 @@
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+    <script type="text/json" src="/js/bootstrap.bundle.min.js.map"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/json" src="/js/bootstrap.min.js.map"></script>
     <script type="text/javascript" src="/js/propio.js"></script>
     <title>SEGQL</title>
   </head>
-  <body>
-    <div class="container">
+  <body style="margin-left: 15px;">
+    <div class="container-flow" style="margin-left: 10px; margin-right: 10px;">
       <div class="row" style="margin-top:2em;">
-        <div class="col-4 alert-success">
+
+        <div class="col-4 alert-success" style="height: 17.6em; overflow-y: scroll;">
           <h1>SEGQL</h1>
           <p>
             <strong>Documentaci&oacute;n:</strong> la estructura de la consulta
@@ -61,15 +66,17 @@
               <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" name="query" required><%= consulta %></textarea>
             </div>
             <button type="submit" class="btn btn-success" style="margin-bottom: 5px;">Ejecutar</button>
-          </form>
-          <div class="card text-center">          
-            <div class="card-header text-muted" style="padding-top: 2px;padding-bottom: 2px;">
-              <%= mensaje %>
+          </form>          
+        </div>
+        <div class="col-12" style="padding-left: 0px;">
+          <div class="card text-center">
+              <div class="card-header text-muted" style="padding-top: 2px;padding-bottom: 2px;">
+                <%= mensaje %>
+              </div>
+              <div class="card-footer text-muted" style="padding-top: 2px;padding-bottom: 2px;">              
+                <%= yield %>
+              </div>
             </div>
-            <div class="card-footer text-muted" style="padding-top: 2px;padding-bottom: 2px;">              
-              <%= yield %>
-            </div>
-          </div>
         </div>
 
       </div>

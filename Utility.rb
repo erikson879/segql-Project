@@ -506,7 +506,7 @@ class Utility
     puts arr_block_set.class
     puts arr_block_set
     result_final = fecth_result_final arr_block_set
-    return result_final if result_final.class String
+    return result_final if result_final.class == String
     
     cadena_final = cadena_final.sub(nodo, '#' + (contador_nodos - 1).to_s + '#')
     if contador > 1

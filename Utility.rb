@@ -77,6 +77,13 @@ class Utility
 
       else
         cond_atom = q.strip.split(/(<>|!=|<=|>=)/)
+        if cond_atom.class == Array
+          arr = []
+          cond_atom.each do |a|
+            arr.push a.strip
+          end
+          cond_atom = arr
+        end
         v_a = if cond_atom.length == 1
                 q.split(/(=|>|<)/)
               else
@@ -118,10 +125,12 @@ class Utility
             break
           end
           if !contiene.zero?
-            ar[ind_hash] = fecth_arr_sin_duplicaco(ar[ind_hash],respuesta_temp) if ar[ind_hash].class == Array
-
+            if ar[ind_hash].class == Array
+              ar[ind_hash] = respuesta_temp
+              ar[ind_hash] = fecth_arr_sin_duplicaco(ar[ind_hash],respuesta_temp) 
+            end
           else
-            ar.push respuesta_temp 
+            ar.push respuesta_temp
           end
 
         end
@@ -378,7 +387,6 @@ class Utility
     condicion = condicion.strip
     condicion
   end
-
 
   def parentesis(condicion, nodos_hash)
     nodos_hash = fetch_nodo_hash(nodos_hash)

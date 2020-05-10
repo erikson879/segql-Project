@@ -1,7 +1,6 @@
 #!/usr/bin/ruby
 # frozen_string_literal: true
 
-
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
@@ -19,7 +18,6 @@ require './Utility'
 #   Erikson Agustin Rodriguez Morillo
 
 uti = Utility.new('segmentacion.json')
-funcion = { 0 => 'SELECT', 1 => 'MERGE' }
 Dir.mkdir('logs') unless File.exist?('logs')
 
 get '/segql' do

@@ -359,10 +359,11 @@ class Utility
     nodos_hash = {}
     puts 'llamado a parentesis'
     nodos_hash = parentesis(condicion, nodos_hash)
-    return nodos_hash if nodos_hash.class == String
+    return nodos_hash
+    #return nodos_hash if nodos_hash.class == String
 
-    valor = g_atri_condic(nodos_hash)
-    return valor if valor.class == String
+    #valor = g_atri_condic(nodos_hash)
+    #return valor if valor.class == String
 
   end
 
@@ -506,17 +507,17 @@ class Utility
     puts arr_block_set.class
     puts arr_block_set
     result_final = fecth_result_final arr_block_set
-    return result_final if result_final.class == String
-    
-    cadena_final = cadena_final.sub(nodo, '#' + (contador_nodos - 1).to_s + '#')
-    if contador > 1
-      nodos_hash[(contador_nodos - 1).to_s] = nodo
-    else
-      if !contador_nodos.nil? && !nodo.nil?
-        nodos_hash[(contador_nodos - 1).to_s] = nodo
-      end
-    end
-    nodos_hash
+    #return result_final if result_final.class == String
+    return result_final
+    # cadena_final = cadena_final.sub(nodo, '#' + (contador_nodos - 1).to_s + '#')
+    # if contador > 1
+    #   nodos_hash[(contador_nodos - 1).to_s] = nodo
+    # else
+    #   if !contador_nodos.nil? && !nodo.nil?
+    #     nodos_hash[(contador_nodos - 1).to_s] = nodo
+    #   end
+    # end
+    # nodos_hash
   end
 
   def valida_cantidad_orden_parentesis(condicion)
@@ -702,9 +703,58 @@ def fecth_arr_sin_duplicaco(arr1,arr2)
   arr1
 end
 
-def fecth_result_final (arr_block_set)
-  if (arr_block_set.length%2) == 0
-    return 'Problemas en el procesamiento del blockset en condiciones'
+def fecth_arr_sin_duplicaco_v1(arr1,arr2)
+  arr2.each do |h|
+    unless arr1.include?(h)
+      arr1 << h
+    end
   end
-  
+  arr1
+end
+
+def fecth_arr_interseccion(arr1, arr2)
+  arr []
+  arr2.each do |h|
+    arr << h if arr1.include?(h)
+
+  end
+  arr
+end
+
+def fecth_full_outer(arr1, arr2)
+  ar = []
+  arf = []
+  arr1.each do |i|
+    ar << i
+  end
+  arr2.each do |i|
+    ar << i
+  end
+  ar.each do |i|
+    arf << i unless arf.include? i
+  end
+  arf
+end
+
+def fecth_result_final (arr_block_set)
+  return 'Problemas en el procesamiento del blockset en condiciones' if (arr_block_set.length%2) == 0
+  resultado_acumulador = nil
+  simbolo_acumulado = nil
+  arr_block_set.each do |i|
+    if i.class == Array && resultado_acumulador.nil?
+      resultado_acumulador = i
+    elsif i.class == String
+      simbolo_acumulado = i.strip
+      next
+    end
+    if !resultado_acumulador.nil? && !simbolo_acumulado.nil?
+      if simbolo_acumulado == 'AND'
+        resultado_acumulador = fecth_arr_interseccion(resultado_acumulador, i)        
+      elsif simbolo_acumulado == 'OR'
+        resultado_acumulador = fecth_full_outer(resultado_acumulador, i)
+      end
+      simbolo_acumulado = nil
+    end
+  end
+  resultado_acumulador
 end

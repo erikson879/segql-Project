@@ -9,7 +9,7 @@ GEM
     debase-ruby_core_source (0.10.9)
     json (2.3.0)
     mustermann (1.0.3)
-    rack (2.2.2)
+    rack (2.0.7)
     rack-protection (2.0.8.1)
       rack
     rake (13.0.1)
@@ -33,7 +33,7 @@ DEPENDENCIES
   bundle
   debase
   json
-  rack (>= 2.2.2)
+  rack (>= 2.0.0, < 2.0.8)
   readapt
   ruby-debug-ide
   sinatra
